@@ -62,7 +62,7 @@ document.addEventListener('click', function() {
 function fetchuser(url) {
   fetch(url)
     .then(res => res.json())
-    .then(function(data) {
+    .then((data) => {
       // console.log(data);
 
       const tr = document.createElement('tr');
@@ -102,7 +102,7 @@ function fetchuser(url) {
 function fetchgroup(url) {
   fetch(url)
     .then(res => res.json())
-    .then(function(data) {
+    .then((data) => {
       // console.log(data);
 
       const li = document.createElement('li');

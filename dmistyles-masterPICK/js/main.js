@@ -1,10 +1,12 @@
 import DmistylesFetch from './dmistyles_fetch';
-import DmistylesRenderUser from './dmistyles_render_user';
-import DmistylesRenderGroup from './dmistyles_render_group';
 import hideAndShow from './hideAndShow';
+import realFetch from './real_fetch';
+import Render from './render';
+import Counters from './counters';
 
 
+Counters.bindTo(document);
+Render.bindTo(document);
+realFetch.bindTo(document);
 hideAndShow.bindTo(document);
-DmistylesRenderUser.bindTo(document);
-DmistylesRenderGroup.bindTo(document);
 DmistylesFetch.bindTo(document);

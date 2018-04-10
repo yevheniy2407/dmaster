@@ -16,14 +16,17 @@ class DmistylesFetch extends Component {
   arrProccesing(webObj) {
     const actionWeb = webObj.action;
     const idWeb = webObj.id;
+    let whoComes;
 
     const httpslinkpart = 'https://ums-honeybadger.herokuapp.com/';
     if (actionWeb === 'user:updated') {
       const url = `${httpslinkpart}user/${idWeb}`;
-      this.emit('DmistylesFetchUser', url, document);
+      whoComes = 'user';
+      this.emit('DmistylesFetch', { url, whoComes }, document);
     } else if (actionWeb === 'group:updated') {
       const url = `${httpslinkpart}group/${idWeb}`;
-      this.emit('DmistylesFetchGroup', url, document);
+      whoComes = 'group';
+      this.emit('DmistylesFetch', { url, whoComes }, document);
     }
   }
 
