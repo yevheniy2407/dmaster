@@ -4,6 +4,11 @@ class DmistylesRenderUser extends Component {
   init() {
     this.on('DmistylesFetchUser', this.DmistylesRenderUser.bind(this), document);
   }
+
+  emithideAndShow(mygroup) {
+    this.emit('hideAndShow', mygroup, document);
+  }
+
   DmistylesRenderUser(url) {
     let mygroup;
     let actionUserEditing;
@@ -48,15 +53,16 @@ class DmistylesRenderUser extends Component {
           mygroup = `group${data.group_id}`;
           // hideandshow(mygroup);
           console.log(mygroup);
-          this.emit('hideAndShow', this.mygroup, document);
+          emithideAndShow(mygroup);
+          // this.emit('hideAndShow', mygroup, document);
           // countusers();
           tr.addEventListener('dblclick', () => {
             actionUserEditing = tr.id;
             currentTr = tr.id;
             // editUser(tr);
           });
-        })
-        .catch(error => console.log(error));
+        });
+      // .catch(error => console.log(error));
     }
 
     fetchuser(url);
