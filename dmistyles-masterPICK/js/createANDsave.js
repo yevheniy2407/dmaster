@@ -2,9 +2,6 @@ import Component from './component';
 
 class CreateAndSave extends Component {
   init() {
-    this.on('Arra', this.CreateAndSavePLEASE.bind(this));
-  }
-  CreateAndSavePLEASE() {
     const createbutton = document.querySelector('#createButton');
     const savebutton = document.querySelector('#saveButton');
     const city = document.querySelector('#city');
@@ -20,6 +17,7 @@ class CreateAndSave extends Component {
     const tbody = document.querySelector('#tbody');
     const groupid = document.querySelector('#groupid');
     const pagetitle = document.querySelector('.page-title');
+
     createbutton.addEventListener('click', () => {
       const allllgroups = document.querySelectorAll('.button');
       let grouppost;
@@ -53,6 +51,17 @@ class CreateAndSave extends Component {
         .catch(error => error);
     });
 
+    this.on('EditUser', this.EditUserFunc.bind(this));
+    this.on('Arra', this.CreateAndSavePLEASE.bind(this));
+  }
+
+  EditUserFunc(tr) {
+    let saveuserinvalid = 0;
+    const savebutton = document.querySelector('#saveButton');
+    const label = document.querySelectorAll('.label');
+    const group_id = document.querySelector('.select-dropdown', '.dropdown-trigger');
+
+    editUser(tr);
     function editUser(tr) {
       const credits = tr.getAttribute('credits');
       const instance = M.Modal.getInstance(modal);
@@ -113,6 +122,21 @@ class CreateAndSave extends Component {
       EventListenerPut(tr);
     }
 
+    function createNewProfile() {
+      const formData = new FormData();
+      formData.append('city', city.value);
+      formData.append('credits', Number(range_credit.value));
+      formData.append('group_id', Number(grouppost));
+      formData.append('name', first_name.value + ' ' + last_name.value);
+      formData.append('phone', phone.value);
+      formData.append('street', street.value);
+      formData.append('zip_code', Number(zip_code.value));
+      return fetch(urlput, {
+        method: 'PUT',
+        body: formData,
+      }).then(response => response.json());
+    }
+
     function EventListenerPut(tr) {
       savebutton.addEventListener('click', () => {
         tr.remove();
@@ -134,21 +158,6 @@ class CreateAndSave extends Component {
           const idmyuser = tr.getAttribute('id');
           urlput = `${urlput}/${idmyuser}`;
 
-          function createNewProfile() {
-            const formData = new FormData();
-            formData.append('city', city.value);
-            formData.append('credits', Number(range_credit.value));
-            formData.append('group_id', Number(grouppost));
-            formData.append('name', first_name.value + ' ' + last_name.value);
-            formData.append('phone', phone.value);
-            formData.append('street', street.value);
-            formData.append('zip_code', Number(zip_code.value));
-            return fetch(urlput, {
-              method: 'PUT',
-              body: formData,
-            }).then(response => response.json());
-          }
-
           createNewProfile()
             .then(res => res.json())
             .then(() => console.log)
@@ -156,6 +165,10 @@ class CreateAndSave extends Component {
         }
       });
     }
+    this.emit();
+  }
+
+  CreateAndSavePLEASE() {
     this.emit();
   }
 }

@@ -1,17 +1,15 @@
 import Component from './component';
 
+let activebutton;
 class Render extends Component {
   init() {
     this.on('fetched', this.RenderUser.bind(this));
   }
 
   RenderUser({ data, whoComes }) {
-    // console.log(data);
-    // console.log(whoComes);
     let mygroup;
     let actionUserEditing;
     let currentTr;
-    let activebutton;
     const inputtemplate = [
       { name: '' },
       { street: '' },
@@ -51,10 +49,10 @@ class Render extends Component {
       mygroup = `group${data.group_id}`;
       this.emit('hideandshowME', activebutton, document);
       this.emit('countMEPLEAS', this, document);
-      //   countusers();
       tr.addEventListener('dblclick', () => {
         actionUserEditing = tr.id;
         currentTr = tr.id;
+        this.emit('EditUser', tr, document);
         // editUser(tr);
       });
       this.emit();
@@ -92,9 +90,8 @@ class Render extends Component {
         activebutton = `group${data.group_id}`;
         pagetitle.innerText = data.name;
         this.emit('hideandshowME', activebutton, document);
-        // hideandshow(mygroup);
       });
-    //   countusers();
+      this.emit('countMEPLEAS', this, document);
     }
   }
 }

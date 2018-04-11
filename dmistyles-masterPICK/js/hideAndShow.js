@@ -9,10 +9,10 @@ class hideAndShow extends Component {
     allusers.forEach((element) => {
       element.setAttribute('hidden', 'true');
       if (element.classList.contains(activebutton) === true) {
+        // console.log('ololol');
         element.removeAttribute('hidden');
       }
     });
-
     this.emit();
   }
 }
